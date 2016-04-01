@@ -1,0 +1,51 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.sale,warehouse_sale:"
+msgid "Productos por bodega"
+msgstr "Productos por bodega"
+
+msgctxt "field:sale.warehouse,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:sale.warehouse,create_uid:"
+msgid "Create User"
+msgstr "Creado por usuario"
+
+msgctxt "field:sale.warehouse,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale.warehouse,product:"
+msgid "Producto"
+msgstr "Producto"
+
+msgctxt "field:sale.warehouse,quantity:"
+msgid "Cantidad"
+msgstr "Cantidad"
+
+msgctxt "field:sale.warehouse,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:sale.warehouse,sale:"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "field:sale.warehouse,warehouse:"
+msgid "Bodega"
+msgstr "Bodega"
+
+msgctxt "field:sale.warehouse,write_date:"
+msgid "Write Date"
+msgstr "Fecha de modificación"
+
+msgctxt "field:sale.warehouse,write_uid:"
+msgid "Write User"
+msgstr "Modificado por usuario"
+
+msgctxt "model:sale.warehouse,name:"
+msgid "SaleWarehouse"
+msgstr "Bodega"
