@@ -2,12 +2,10 @@
 <!-- This file is part sale_pos module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <data>
-    <xpath expr="/form/field[@name= 'state']" position="after">
-        <notebook colspan="1">
-        <page string="Productos por bodega" id="warehouse">
-            <field name="warehouse_sale" mode="tree" colspan="1"
-                view_ids="nodux_sale_pos_warehouse.warehouse_view_tree"/>
-        </page>
-       </notebook>
+    <xpath expr="/form/group[@id= 'cash']" position="before">
+        <group id = "warehouse" colspan="2">
+                <field name="warehouse_sale" mode="tree" colspan="2"
+                    view_ids="nodux_sale_pos_warehouse.warehouse_view_tree"/>
+        </group>
     </xpath>
 </data>
