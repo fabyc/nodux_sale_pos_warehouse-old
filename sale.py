@@ -17,7 +17,7 @@ _ZERO = Decimal('0.0')
 class Sale():
     'Sale'
     __name__ = 'sale.sale'
-    warehouse_sale = fields.One2Many('sale.warehouse', 'sale', 'Productos por bodega')
+    warehouse_sale = fields.One2Many('sale.warehouse', 'sale', 'Productos por bodega', readonly=True)
     
     @classmethod
     def __setup__(cls):
@@ -39,7 +39,6 @@ class Sale():
         stock = 0
         in_s = 0
         res = {}
-        
         if not self.self_pick_up:
             return super(Sale, self).on_change_lines()
         res ['untaxed_amount'] = Decimal('0.0')
@@ -58,14 +57,14 @@ class Sale():
                 [(getattr(l, 'amount_w_tax', None) or Decimal(0))
                     for l in self.lines if l.type == 'line'], Decimal(0)
                 )
+            
+            tam = len(location)
             for l in self.lines:
                 if self.warehouse_sale:
-                    print "Si hay 2da limpieza "
                     res['warehouse_sale']['remove'] = [x['id'] for x in self.warehouse_sale]
-                        
+                c_location = 1       
                 if l.product != None:
                     if self.warehouse_sale:
-                        print "Si hay 3era limpieza "
                         res['warehouse_sale']['remove'] = [x['id'] for x in self.warehouse_sale]
                     for lo in location:
                         #inventario por cada uno de los productos
@@ -77,18 +76,31 @@ class Sale():
                         for m in move :
                             stock += m.quantity
                         s_total = in_s - stock
-                        if s_total > 0:
+                        if s_total > 0 and c_location == tam:
                             result = {
                                 'product': l.product.name,
                                 'warehouse': lo.name,
                                 'quantity': str(s_total),
                                 }
-                        else:
+                        elif s_total > 0 and c_location != tam:
+                            result = {
+                                'product': " ",
+                                'warehouse': lo.name,
+                                'quantity': str(s_total),
+                                }
+                        elif s_total <= 0 and c_location != tam:
+                            result = {
+                                'product': " ",
+                                'warehouse': lo.name,
+                                'quantity': str(s_total),
+                                }
+                        elif s_total <= 0 and c_location == tam:
                             result = {
                                 'product': l.product.name,
                                 'warehouse': lo.name,
-                                'quantity': '0',
+                                'quantity': str(s_total),
                                 }
+                        c_location += 1 
                                 
                         stock = 0
                         in_s = 0
@@ -100,16 +112,15 @@ class Sale():
         if self.currency:
             res['tax_amount'] = self.currency.round(res['tax_amount'])
             
-        print "YA SE AGREGA **", res
         return res
     
         
 class SaleWarehouse(ModelSQL, ModelView):
-    'SaleWarehouse'
+    'Producto por Bodega'
     __name__ = 'sale.warehouse'
     
-    sale = fields.Many2One('sale.sale', 'Sale')
-    product = fields.Char('Producto')
-    warehouse = fields.Char('Bodega')
-    quantity = fields.Char('Cantidad')
+    sale = fields.Many2One('sale.sale', 'Sale', readonly = True)
+    product = fields.Char('Producto',  readonly = True)
+    warehouse = fields.Char('Bodega',  readonly = True)
+    quantity = fields.Char('Cantidad',  readonly = True)
     
