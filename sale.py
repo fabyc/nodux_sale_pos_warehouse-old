@@ -80,25 +80,25 @@ class Sale():
                             result = {
                                 'product': l.product.name,
                                 'warehouse': lo.name,
-                                'quantity': str(s_total),
+                                'quantity': str(int(s_total)),
                                 }
                         elif s_total > 0 and c_location != tam:
                             result = {
                                 'product': " ",
                                 'warehouse': lo.name,
-                                'quantity': str(s_total),
+                                'quantity': str(int(s_total)),
                                 }
                         elif s_total <= 0 and c_location != tam:
                             result = {
                                 'product': " ",
                                 'warehouse': lo.name,
-                                'quantity': str(s_total),
+                                'quantity': str(int(s_total)),
                                 }
                         elif s_total <= 0 and c_location == tam:
                             result = {
                                 'product': l.product.name,
                                 'warehouse': lo.name,
-                                'quantity': str(s_total),
+                                'quantity': str(int(s_total)),
                                 }
                         c_location += 1 
                                 
@@ -113,9 +113,8 @@ class Sale():
             res['tax_amount'] = self.currency.round(res['tax_amount'])
             
         return res
-    
-        
-class SaleWarehouse(ModelSQL, ModelView):
+           
+class SaleWarehouse(ModelView):
     'Producto por Bodega'
     __name__ = 'sale.warehouse'
     
