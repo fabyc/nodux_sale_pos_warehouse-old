@@ -114,7 +114,7 @@ class Sale():
             
         return res
            
-class SaleWarehouse(ModelView):
+class SaleWarehouse(ModelView, ModelSQL):
     'Producto por Bodega'
     __name__ = 'sale.warehouse'
     
